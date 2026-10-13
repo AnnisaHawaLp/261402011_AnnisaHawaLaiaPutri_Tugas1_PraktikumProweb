@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Suit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Program Suit</h1>
+
+        <label for="jenisSuit">Pilih jenis suit:</label>
+        <select id="jenisSuit">
+            <option value="batu">Suit Batu Gunting Kertas</option>
+            <option value="gajah">Suit Gajah Orang Semut</option>
+            <option value="jari">Suit Jari</option>
+        </select>
+
+        <p id="aturan"></p>
+
+        <h3>Pilihanmu Lek:</h3>
+        <div id="tempatPilihan"></div>
+
+        <div id="hasilBox">
+            <p>Pilihan kamu: <span id="pilihanUser">-</span></p>
+            <p>Pilihan komputer: <span id="pilihanKomputer">-</span></p>
+            <p id="hasil">pilih dulu lek</p>
+        </div>
+
+        <div class="skor">
+            <p>Gacor Win: <span id="skorMenang">0</span></p>
+            <p>Cupu Lose: <span id="skorKalah">0</span></p>
+            <p>Seri aman aa: <span id="skorSeri">0</span></p>
+        </div>
+
+        <button id="tombolReset">Reset Skor</button>
+    </div>
+
+    <script>
+        var jenisSuit = document.getElementById("jenisSuit");
+        var aturan = document.getElementById("aturan");
+        var tempatPilihan = document.getElementById("tempatPilihan");
+        var pilihanUserText = document.getElementById("pilihanUser");
+        var pilihanKomputerText = document.getElementById("pilihanKomputer");
+        var hasilText = document.getElementById("hasil");
+        var skorMenang = document.getElementById("skorMenang");
+        var skorKalah = document.getElementById("skorKalah");
+        var skorSeri = document.getElementById("skorSeri");
+        var tombolReset = document.getElementById("tombolReset");
+
+        var jumlahMenang = 0;
+        var jumlahKalah = 0;
+        var jumlahSeri = 0;
+
+        var daftarPilihan = {
+            batu: ["batu", "gunting", "kertas"],
+            gajah: ["gajah", "orang", "semut"],
+            jari: ["jempol", "telunjuk", "kelingking"]
+        };
+
+        var daftarAturan = {
+            batu: "Aturan: Batu mengalahkan gunting, gunting mengalahkan kertas, kertas mengalahkan batu.",
+            gajah: "Aturan: Gajah mengalahkan orang, orang mengalahkan semut, semut mengalahkan gajah.",
+            jari: "Aturan: Jempol mengalahkan telunjuk, telunjuk mengalahkan kelingking, kelingking mengalahkan jempol."
+        };
+
+        function suitBatuGuntingKertas(user, komputer) {
+            if (user == komputer) {
+                return "seri";
+            } else if (user == "batu" && komputer == "gunting") {
+                return "menang";
+            } else if (user == "gunting" && komputer == "kertas") {
+                return "menang";
+            } else if (user == "kertas" && komputer == "batu") {
+                return "menang";
+            } else {
+                return "kalah";
+            }
+        }
+
+        function suitGajahOrangSemut(user, komputer) {
+            if (user == komputer) {
+                return "seri";
+            } else if (user == "gajah" && komputer == "orang") {
+                return "menang";
+            } else if (user == "orang" && komputer == "semut") {
+                return "menang";
+            } else if (user == "semut" && komputer == "gajah") {
+                return "menang";
+            } else {
+                return "kalah";
+            }
+        }
+
+        function suitJari(user, komputer) {
+            if (user == komputer) {
+                return "seri";
+            } else if (user == "jempol" && komputer == "telunjuk") {
+                return "menang";
+            } else if (user == "telunjuk" && komputer == "kelingking") {
+                return "menang";
+            } else if (user == "kelingking" && komputer == "jempol") {
+                return "menang";
+            } else {
+                return "kalah";
+            }
+        }
+
+        function tampilkanPilihan() {
+            var jenis = jenisSuit.value;
+            var pilihan = daftarPilihan[jenis];
+
+            tempatPilihan.innerHTML = "";
+            aturan.innerText = daftarAturan[jenis];
+
+            for (var i = 0; i < pilihan.length; i++) {
+                var tombol = document.createElement("button");
+                tombol.innerText = pilihan[i];
+                tombol.setAttribute("data-pilihan", pilihan[i]);
+                tombol.onclick = function () {
+                    mainkan(this.getAttribute("data-pilihan"));
+                };
+                tempatPilihan.appendChild(tombol);
+            }
+        }
+
+        function mainkan(pilihanUser) {
+            var jenis = jenisSuit.value;
+            var pilihan = daftarPilihan[jenis];
+            var acak = Math.floor(Math.random() * pilihan.length);
+            var pilihanKomputer = pilihan[acak];
+            var hasil = "";
+
+            if (jenis == "batu") {
+                hasil = suitBatuGuntingKertas(pilihanUser, pilihanKomputer);
+            } else if (jenis == "gajah") {
+                hasil = suitGajahOrangSemut(pilihanUser, pilihanKomputer);
+            } else {
+                hasil = suitJari(pilihanUser, pilihanKomputer);
+            }
+
+            pilihanUserText.innerText = pilihanUser;
+            pilihanKomputerText.innerText = pilihanKomputer;
+            hasilText.className = hasil;
+
+            if (hasil == "menang") {
+                hasilText.innerText = "Kamu Menang!";
+                jumlahMenang++;
+            } else if (hasil == "kalah") {
+                hasilText.innerText = "Kamu Kalah!";
+                jumlahKalah++;
+            } else {
+                hasilText.innerText = "Hasilnya Seri!";
+                jumlahSeri++;
+            }
+
+            skorMenang.innerText = jumlahMenang;
+            skorKalah.innerText = jumlahKalah;
+            skorSeri.innerText = jumlahSeri;
+        }
+
+        function resetSkor() {
+            jumlahMenang = 0;
+            jumlahKalah = 0;
+            jumlahSeri = 0;
+            skorMenang.innerText = 0;
+            skorKalah.innerText = 0;
+            skorSeri.innerText = 0;
+            pilihanUserText.innerText = "-";
+            pilihanKomputerText.innerText = "-";
+            hasilText.className = "";
+            hasilText.innerText = "Pilih Dulu Lek";
+        }
+
+        jenisSuit.onchange = function () {
+            resetSkor();
+            tampilkanPilihan();
+        };
+
+        tombolReset.onclick = resetSkor;
+
+        tampilkanPilihan();
+    </script>
+</body>
+</html>

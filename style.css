@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e3a5f;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 450px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: #1e3a5f;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #1e3a5f;
+    border-radius: 5px;
+}
+
+#aturan {
+    font-size: 14px;
+    color: #555555;
+    background-color: #eef3f8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#tempatPilihan {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#tempatPilihan button {
+    padding: 12px 18px;
+    font-size: 16px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+#tempatPilihan button:hover {
+    background-color: #2f5d94;
+}
+
+#hasilBox {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px dashed #1e3a5f;
+    border-radius: 5px;
+}
+
+#hasilBox p {
+    margin: 6px 0;
+}
+
+#hasil {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.menang {
+    color: green;
+}
+
+.kalah {
+    color: red;
+}
+
+.seri {
+    color: orange;
+}
+
+.skor {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+#tombolReset {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#tombolReset:hover {
+    background-color: #e74c3c;
+}
